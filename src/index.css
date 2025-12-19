@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Removes the ugly up/down arrows on number inputs */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* ... keep your existing tailwind directives at the top ... */
+
+/* Hides the ugly number spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+/* PRINT STYLES: This makes the PDF look perfect */
+@media print {
+  /* Hide Navbar, Form Section, Buttons, and Scrollbars */
+  nav, .form-section, button, .no-print {
+    display: none !important;
+  }
+
+  /* Make the Resume Preview fill the whole page */
+  body, .main-container {
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  .resume-preview-section {
+    display: block !important;
+    width: 100% !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Force background colors (for blue headers/icons) to appear in PDF */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
