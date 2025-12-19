@@ -1,33 +1,54 @@
-/// src/utils/AIResumeGenerator.js
+// This file simulates the AI Career Coach logic
 
-export const generateEnhancedResume = (formData) => {
-    // 1. Auto-Capitalize Helper
-    const capitalize = (str) => {
-      if (!str) return '';
-      return str.replace(/\b\w/g, char => char.toUpperCase());
-    };
-  
-    // 2. Smart Bullet Point Formatter
-    const formatBullets = (text) => {
-      if (!text) return [];
-      // Split by newline or comma, filter empty, and trim
-      return text.split(/,|\n/).map(item => item.trim()).filter(item => item.length > 0);
-    };
-  
-    // 3. Process the Data
-    return {
-      ...formData,
-      // Enhanced Fields
-      fullName: capitalize(formData.fullName),
-      jobTitle: capitalize(formData.jobTitle).toUpperCase(),
-      city: capitalize(formData.city),
-      university: capitalize(formData.university),
-      degree: capitalize(formData.degree),
-      company: capitalize(formData.company),
-      role: capitalize(formData.role),
-      
-      // Formatted Lists
-      skills: formData.skills, // Kept as string for the UI to handle, or processed if needed
-      summary: formData.summary || `A dedicated ${formData.jobTitle || 'Professional'} with experience in ${formData.skills ? formData.skills.split(',')[0] : 'modern technologies'}.`,
-    };
+export const generateEnhancedResume = (rawData) => {
+  // Helper: Capitalize first letter of every word
+  const capitalize = (str) => {
+    if (!str) return "";
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
+
+  // Helper: Turn raw text into Bullet Points
+  const formatBulletPoints = (text) => {
+    if (!text) return [];
+    const rawBullets = text.split(/\n|\. /); 
+    return rawBullets
+      .filter((b) => b.trim().length > 5)
+      .map((b) => {
+        let cleanB = b.trim();
+        cleanB = cleanB.replace(/^[•\-*]\s*/, ""); 
+        return cleanB.charAt(0).toUpperCase() + cleanB.slice(1);
+      });
+  };
+
+  // --- AI LOGIC: ENHANCE THE DATA ---
+  return {
+    ...rawData,
+    fullName: capitalize(rawData.fullName),
+    jobTitle: capitalize(rawData.jobTitle).toUpperCase(), 
+    
+    // FIX: ONLY use user input. No random AI text.
+    summary: rawData.summary ? rawData.summary : "",
+
+    // Enhance Experience
+    company: capitalize(rawData.company),
+    role: capitalize(rawData.role),
+    expDescFormatted: formatBulletPoints(rawData.expDesc),
+
+    // Enhance Education
+    university: capitalize(rawData.university),
+    degree: capitalize(rawData.degree),
+    
+    // Enhance Skills
+    skillsFormatted: rawData.skills 
+      ? rawData.skills.split(",").map(s => s.trim().toUpperCase()) 
+      : [],
+      
+    // Links
+    linkedin: rawData.linkedin?.startsWith("http") ? rawData.linkedin : (rawData.linkedin ? `https://${rawData.linkedin}` : ""),
+    website: rawData.website?.startsWith("http") ? rawData.website : (rawData.website ? `https://${rawData.website}` : ""),
+  };
+};
