@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/novusx-resume-builder/static/css/main.41207818.css",
+    "main.js": "/novusx-resume-builder/static/js/main.8e4aa09d.js",
+    "index.html": "/novusx-resume-builder/index.html",
+    "main.41207818.css.map": "/novusx-resume-builder/static/css/main.41207818.css.map",
+    "main.8e4aa09d.js.map": "/novusx-resume-builder/static/js/main.8e4aa09d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.41207818.css",
+    "static/js/main.8e4aa09d.js"
+  ]
+}
