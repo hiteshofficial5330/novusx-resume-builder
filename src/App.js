@@ -68,28 +68,31 @@ const PersonalDetails = ({ data, handleChange, onNext, handleImageUpload, handle
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Full Name</label>
-            <input type="text" name="fullName" value={data.fullName} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+            <label className="text-xs font-bold text-slate-500 uppercase">Full Name <span className="text-red-500">*</span></label>
+            <input type="text" name="fullName" value={data.fullName} onChange={handleChange} className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.fullName ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+            {errors.fullName && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Name is required</p>}
         </div>
         <div>
             <label className="text-xs font-bold text-slate-500 uppercase">Job Title</label>
             <input type="text" name="jobTitle" value={data.jobTitle} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
         </div>
         <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Email</label>
+            <label className="text-xs font-bold text-slate-500 uppercase">Email <span className="text-red-500">*</span></label>
             <input type="email" name="email" value={data.email} onChange={handleChange} className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.email ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
-            {errors.email && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Invalid Email</p>}
+            {errors.email && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Valid Email required</p>}
         </div>
         <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Phone (10 Digits)</label>
+            <label className="text-xs font-bold text-slate-500 uppercase">Phone <span className="text-red-500">*</span></label>
             <div className="relative">
-                <input type="tel" name="phone" value={data.phone} onChange={handleChange} maxLength="10" className={`w-full p-3 border rounded focus:ring-2 outline-none ${data.phone.length === 10 ? 'border-green-500 ring-1 ring-green-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+                <input type="tel" name="phone" value={data.phone} onChange={handleChange} maxLength="10" className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.phone ? 'border-red-500 ring-1 ring-red-200' : (data.phone.length === 10 ? 'border-green-500 ring-1 ring-green-200' : 'border-slate-300 focus:ring-indigo-500')}`} />
                 {data.phone.length === 10 && <span className="absolute right-3 top-3 text-green-500 text-sm">✅</span>}
             </div>
+            {errors.phone && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ 10-digit Phone required</p>}
         </div>
         <div className="md:col-span-2">
-            <label className="text-xs font-bold text-slate-500 uppercase">City / Address</label>
-            <input type="text" name="address" value={data.address} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+            <label className="text-xs font-bold text-slate-500 uppercase">City / Address <span className="text-red-500">*</span></label>
+            <input type="text" name="address" value={data.address} onChange={handleChange} className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.address ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+            {errors.address && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Address is required</p>}
         </div>
          <div className="md:col-span-2">
             <label className="text-xs font-bold text-slate-500 uppercase">LinkedIn URL</label>
@@ -112,24 +115,27 @@ const PersonalDetails = ({ data, handleChange, onNext, handleImageUpload, handle
 );
 
 // --- COMPONENT: 2. EDUCATION ---
-const Education = ({ data, handleChange, onBack, onNext }) => (
+const Education = ({ data, handleChange, onBack, onNext, errors }) => (
   <div className="bg-white p-4 md:p-6 rounded-xl shadow-md border border-slate-200 animate-fadeIn">
     <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">🎓 <span className="border-b-2 border-indigo-500 pb-1">Education</span></h2>
     <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
         <h3 className="text-sm font-bold text-slate-700 mb-3 uppercase tracking-wide">Highest Qualification</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-                <label className="text-xs font-bold text-slate-500 uppercase">University / College</label>
-                <input type="text" name="university" value={data.university} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <label className="text-xs font-bold text-slate-500 uppercase">University / College <span className="text-red-500">*</span></label>
+                <input type="text" name="university" value={data.university} onChange={handleChange} className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.university ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+                 {errors.university && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Required</p>}
             </div>
             <div>
-                <label className="text-xs font-bold text-slate-500 uppercase">Degree</label>
-                <input type="text" name="degree" value={data.degree} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+                <label className="text-xs font-bold text-slate-500 uppercase">Degree <span className="text-red-500">*</span></label>
+                <input type="text" name="degree" value={data.degree} onChange={handleChange} className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.degree ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+                 {errors.degree && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Required</p>}
             </div>
             <div className="flex gap-2">
                 <div className="w-1/2">
-                    <label className="text-xs font-bold text-slate-500 uppercase">Pass Year</label>
-                    <input type="text" name="eduEnd" value={data.eduEnd} onChange={handleChange} maxLength="4" className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+                    <label className="text-xs font-bold text-slate-500 uppercase">Pass Year <span className="text-red-500">*</span></label>
+                    <input type="text" name="eduEnd" value={data.eduEnd} onChange={handleChange} maxLength="4" className={`w-full p-3 border rounded focus:ring-2 outline-none ${errors.eduEnd ? 'border-red-500 ring-1 ring-red-200' : 'border-slate-300 focus:ring-indigo-500'}`} />
+                     {errors.eduEnd && <p className="text-red-500 text-[10px] mt-1 font-bold">⚠️ Required</p>}
                 </div>
                 <div className="w-1/2">
                     <label className="text-xs font-bold text-slate-500 uppercase">CGPA / %</label>
@@ -203,28 +209,44 @@ const Education = ({ data, handleChange, onBack, onNext }) => (
   </div>
 );
 
-// --- COMPONENT: 3. EXPERIENCE ---
-const Experience = ({ data, handleChange, onBack, onNext }) => (
+// --- COMPONENT: 3. EXPERIENCE (MULTIPLE) ---
+const Experience = ({ data, addExperience, updateExperience, removeExperience, onBack, onNext }) => (
   <div className="bg-white p-4 md:p-6 rounded-xl shadow-md border border-slate-200 animate-fadeIn">
     <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">💼 <span className="border-b-2 border-indigo-500 pb-1">Experience</span></h2>
-    <div className="grid grid-cols-1 gap-4 mb-4">
-        <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Company Name</label>
-            <input type="text" name="company" value={data.company} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+    
+    {data.experiences.map((exp, index) => (
+        <div key={exp.id} className="relative bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6 group">
+            {data.experiences.length > 1 && (
+                <button onClick={() => removeExperience(exp.id)} className="absolute top-2 right-2 text-slate-300 hover:text-red-500 font-bold z-10">
+                    🗑️ Remove
+                </button>
+            )}
+            <h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Experience {index + 1}</h3>
+            <div className="grid grid-cols-1 gap-4 mb-2">
+                <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase">Company Name</label>
+                    <input type="text" value={exp.company} onChange={(e) => updateExperience(exp.id, 'company', e.target.value)} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+                </div>
+                <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase">Job Role</label>
+                    <input type="text" value={exp.role} onChange={(e) => updateExperience(exp.id, 'role', e.target.value)} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <div><label className="text-xs font-bold text-slate-500 uppercase">Start Year</label><input type="text" value={exp.start} onChange={(e) => updateExperience(exp.id, 'start', e.target.value)} maxLength="4" className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" /></div>
+                    <div><label className="text-xs font-bold text-slate-500 uppercase">End Year</label><input type="text" value={exp.end} onChange={(e) => updateExperience(exp.id, 'end', e.target.value)} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" /></div>
+                </div>
+                <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase">Description</label>
+                    <textarea value={exp.desc} onChange={(e) => updateExperience(exp.id, 'desc', e.target.value)} rows="4" className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                </div>
+            </div>
         </div>
-        <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Job Role</label>
-            <input type="text" name="role" value={data.role} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-             <div><label className="text-xs font-bold text-slate-500 uppercase">Start Year</label><input type="text" name="expStart" value={data.expStart} onChange={handleChange} maxLength="4" className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" /></div>
-             <div><label className="text-xs font-bold text-slate-500 uppercase">End Year</label><input type="text" name="expEnd" value={data.expEnd} onChange={handleChange} className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none" /></div>
-        </div>
-        <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">Description</label>
-            <textarea name="expDesc" value={data.expDesc} onChange={handleChange} rows="4" className="w-full p-3 border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
-        </div>
-    </div>
+    ))}
+
+    <button onClick={addExperience} className="w-full py-3 border-2 border-dashed border-indigo-300 rounded-lg text-indigo-600 font-bold hover:bg-indigo-50 transition-colors mb-6 flex items-center justify-center gap-2">
+        + Add Another Experience
+    </button>
+
     <div className="flex justify-between mt-6">
       <button onClick={onBack} className="text-slate-500 hover:text-slate-800 font-bold px-4">← Back</button>
       <button onClick={onNext} className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-black transition-colors shadow-lg font-medium">Next Step →</button>
@@ -308,7 +330,8 @@ function App() {
     university: '', degree: '', eduEnd: '', eduScore: '',
     type12: '12th', board12: '', stream12: '', year12: '', score12: '',
     board10: '', year10: '', score10: '',
-    company: '', role: '', expStart: '', expEnd: '', expDesc: '',
+    // CHANGED: experiences is now an array
+    experiences: [{ id: 1, company: '', role: '', start: '', end: '', desc: '' }],
     skills: '', skillLabel: 'Technical Skills',
     languages: '', certifications: '',
     customSections: [{ id: 1, title: '', desc: '', year: '' }]
@@ -332,26 +355,17 @@ function App() {
         if (/^[a-zA-Z\s-]+$/.test(value)) return capitalize(value);
         return null;
     }
-    if (['summary', 'summaryTitle', 'certifications', 'company', 'role', 'skills'].includes(name)) return value;
+    if (['summary', 'summaryTitle', 'certifications', 'skills'].includes(name)) return value;
     if (name === 'phone') {
         if (value === '') return '';
         if (/^[0-9]+$/.test(value)) return value.length <= 10 ? value : null;
         return null;
     }
-    if (['year10', 'year12', 'expStart'].includes(name)) {
+    if (['year10', 'year12', 'eduEnd'].includes(name)) {
         if (value === '') return '';
         if (/^[0-9]+$/.test(value) && value.length <= 4) {
-            if (value.length === 4 && parseInt(value) > currentYear) return null;
+            if (value.length === 4 && parseInt(value) > currentYear + 6) return null;
             return value;
-        }
-        return null;
-    }
-    if (['eduEnd', 'expEnd'].includes(name)) {
-        if (value === '') return '';
-        if (value.toLowerCase() === 'present') return 'Present'; 
-        if (/^[0-9]+$/.test(value) && value.length <= 4) {
-             if (value.length === 4 && parseInt(value) > currentYear + 6) return null;
-             return value;
         }
         return null;
     }
@@ -372,6 +386,41 @@ function App() {
     const { name, value } = e.target;
     const validatedValue = validateInput(name, value);
     if (validatedValue !== null) setResumeData({ ...resumeData, [name]: validatedValue });
+    // Clear error if typing
+    if (validatedValue !== null && errors[name]) setErrors(prev => ({ ...prev, [name]: false }));
+  };
+
+  // EXPERIENCE HANDLERS
+  const addExperience = () => {
+      const newId = resumeData.experiences.length + 1;
+      setResumeData({ ...resumeData, experiences: [...resumeData.experiences, { id: newId, company: '', role: '', start: '', end: '', desc: '' }] });
+  };
+  const updateExperience = (id, field, value) => {
+      const currentYear = new Date().getFullYear();
+      
+      // Basic validation for dates
+      if (['start', 'end'].includes(field)) {
+          // Allow empty or "Present"
+          if (value === '') {
+             // pass
+          } else if (value.toLowerCase() === 'present') {
+             // pass
+          } else if (!/^[0-9]+$/.test(value)) {
+             // Not a number? block it
+             return;
+          } else {
+             // It is a number
+             if (value.length > 4) return;
+             // Check if future
+             if (value.length === 4 && parseInt(value) > currentYear) return;
+          }
+      }
+      const updatedExps = resumeData.experiences.map(exp => exp.id === id ? { ...exp, [field]: value } : exp);
+      setResumeData({ ...resumeData, experiences: updatedExps });
+  };
+  const removeExperience = (id) => {
+      const updatedExps = resumeData.experiences.filter(exp => exp.id !== id);
+      setResumeData({ ...resumeData, experiences: updatedExps });
   };
 
   const addCustomSection = () => {
@@ -396,7 +445,41 @@ function App() {
     }
   };
   const handleImageRemove = () => setResumeData({ ...resumeData, photo: null });
-  const nextStep = () => setStep(step + 1);
+
+  // STEP VALIDATION LOGIC
+  const validateStep = (currentStep) => {
+      const newErrors = {};
+      let isValid = true;
+
+      if (currentStep === 1) {
+          if (!resumeData.fullName) newErrors.fullName = true;
+          if (!resumeData.email || errors.email) newErrors.email = true;
+          if (!resumeData.phone || resumeData.phone.length !== 10) newErrors.phone = true;
+          if (!resumeData.address) newErrors.address = true;
+      }
+      
+      if (currentStep === 2) {
+          if (!resumeData.university) newErrors.university = true;
+          if (!resumeData.degree) newErrors.degree = true;
+          if (!resumeData.eduEnd) newErrors.eduEnd = true;
+      }
+
+      if (Object.keys(newErrors).length > 0) {
+          setErrors(newErrors);
+          isValid = false;
+          // Shake effect or alert could go here
+          alert("Please fill in all required fields marked with *");
+      }
+      return isValid;
+  };
+
+  const nextStep = () => {
+      if (validateStep(step)) {
+          setStep(step + 1);
+          setErrors({});
+          window.scrollTo(0, 0);
+      }
+  };
   const prevStep = () => setStep(step - 1);
   
   const handleFinish = async () => {
@@ -420,15 +503,11 @@ function App() {
     const certList = getList(data.certifications);
     const skillList = getList(data.skills);
 
-    // --- HELPER: GET SCORE LABEL ---
     const getScoreLabel = (score) => {
         if (!score) return '';
-        // If it contains %, it's Percentage
         if (score.toString().includes('%')) return 'Percentage';
-        // If it is a number and <= 10, it's CGPA
         const num = parseFloat(score);
         if (!isNaN(num) && num <= 10 && num >= 0) return 'CGPA';
-        // Default to Percentage
         return 'Percentage';
     };
 
@@ -471,19 +550,22 @@ function App() {
     const t = styles[templateMode];
     const userColor = customColor;
 
-    const ExperienceSection = data.company && (
+    // CHANGED: Map through all experiences
+    const ExperienceSection = data.experiences && data.experiences.length > 0 && data.experiences[0].company && (
         <div className="mb-6">
             <h3 className={t.sectionTitle} style={templateMode === 'classic' ? {borderColor: userColor} : {}}>Experience</h3>
-            <div className="mb-4">
-                <div className="flex justify-between items-baseline mb-1">
-                    <h4 className="font-extrabold text-slate-900 text-lg">{data.role}</h4>
-                    <span className="text-sm font-bold text-slate-500 whitespace-nowrap ml-4">
-                         {data.expStart} - {data.expEnd}
-                    </span>
+            {data.experiences.map((exp) => (
+                <div key={exp.id} className="mb-4">
+                    <div className="flex justify-between items-baseline mb-1">
+                        <h4 className="font-extrabold text-slate-900 text-lg">{exp.role}</h4>
+                        <span className="text-sm font-bold text-slate-500 whitespace-nowrap ml-4">
+                            {exp.start} - {exp.end}
+                        </span>
+                    </div>
+                    <div className={`text-slate-600 font-medium mb-2`}>{exp.company}</div>
+                    <p className="text-slate-700 whitespace-pre-line text-sm leading-relaxed">{exp.desc}</p>
                 </div>
-                <div className={`text-slate-600 font-medium mb-2`}>{data.company}</div>
-                <p className="text-slate-700 whitespace-pre-line text-sm leading-relaxed">{data.expDesc}</p>
-            </div>
+            ))}
         </div>
     );
 
@@ -694,8 +776,9 @@ function App() {
             <div className="lg:col-span-5 space-y-6">
                <ProgressBar step={step} />
                {step === 1 && <PersonalDetails data={resumeData} handleChange={handleChange} onNext={nextStep} handleImageUpload={handleImageUpload} handleImageRemove={handleImageRemove} errors={errors} />}
-               {step === 2 && <Education data={resumeData} handleChange={handleChange} onBack={prevStep} onNext={nextStep} />}
-               {step === 3 && <Experience data={resumeData} handleChange={handleChange} onBack={prevStep} onNext={nextStep} />}
+               {step === 2 && <Education data={resumeData} handleChange={handleChange} onBack={prevStep} onNext={nextStep} errors={errors} />}
+               {/* CHANGED: Passing new props to Experience */}
+               {step === 3 && <Experience data={resumeData} addExperience={addExperience} updateExperience={updateExperience} removeExperience={removeExperience} onBack={prevStep} onNext={nextStep} />}
                {step === 4 && <Extras data={resumeData} handleChange={handleChange} onBack={prevStep} onNext={handleFinish} addCustomSection={addCustomSection} updateCustomSection={updateCustomSection} removeCustomSection={removeCustomSection} />}
             </div>
             <div className="lg:col-span-7">
